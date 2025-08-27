@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Charli {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Song[] songs = new Song[100];
+        Task[] songs = new Task[100];
         int count = 0;
         String logo =
                 "         ,--./,-.   \n"
@@ -60,7 +60,7 @@ public class Charli {
                     System.out.println("    ERROR: Use 'unplayed [number]' format!\n");
                 }
             } else {
-                songs[count] = new Song(input);
+                songs[count] = new Task(input);
                 count++;
                 System.out.println("    added: " + input);
             }

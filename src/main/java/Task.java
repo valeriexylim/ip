@@ -1,8 +1,8 @@
-public class Song {
+public class Task {
     protected String title;
     protected boolean played;
 
-    public Song(String title) {
+    public Task(String title) {
         this.title = title;
         this.played = false;
     }

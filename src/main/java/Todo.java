@@ -1,4 +1,4 @@
-public class Todo extends Song{
+public class Todo extends Task {
     public Todo(String description) {
         super(description);
     }
