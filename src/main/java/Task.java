@@ -1,35 +1,35 @@
 public class Task {
-    protected String title;
-    protected boolean played;
+    protected String description;
+    protected boolean isDone;
 
-    public Task(String title) {
-        this.title = title;
-        this.played = false;
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
     }
 
     public String getStatusIcon() {
-        return played ? "X" : " ";
+        return (isDone ? "✓" : " ");
     }
 
-    public void markAsPlayed() {
-        this.played = true;
+    public void markAsDone() {
+        this.isDone = true;
     }
 
-    public void markAsUnplayed() {
-        this.played = false;
+    public void markAsNotDone() {
+        this.isDone = false;
     }
 
-    public boolean isPlayed() {
-        return played;
+    public boolean isDone() {
+        return isDone;
     }
 
-    public String getTitle() {
-        return title;
+    public String getDescription() {
+        return description;
     }
 
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + title;
+        return "[" + getStatusIcon() + "] " + description;
     }
 
 }
