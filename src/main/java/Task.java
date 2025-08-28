@@ -7,10 +7,6 @@ public class Task {
         this.isDone = false;
     }
 
-    public getDescription() {
-        return description;
-    }
-
     public String getStatusIcon() {
         return (isDone ? "✓" : " ");
     }
