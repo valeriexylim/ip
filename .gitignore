@@ -15,3 +15,6 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# saved file data from Charli program
+data/charli.txt
