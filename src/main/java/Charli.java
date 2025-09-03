@@ -165,14 +165,17 @@ public class Charli {
         }
     }
 
+    //helper for loadTasks
     private Task parseSavedTask(String line) {
         try {
             //Split the line by " | "
             String[] parts = line.split(" \\| ");
+            //Skip corrupted lines e.g. due to manual edits/program crash mid saving
             if (parts.length < 3) {
                 return null; //Invalid line, skip it
             }
 
+            //Extract tasks details to build tasks - type, isDone, description
             String type = parts[0];
             boolean isDone = parts[1].equals("1"); // "1" means done, "0" means not done
             String description = parts[2];
@@ -185,16 +188,16 @@ public class Charli {
                     break;
                 case "D":
                     //For Deadline, the 4th part is the 'by' date string
-                    if (parts.length < 4) return null; // Invalid deadline format
+                    if (parts.length < 4) return null; //Invalid deadline format
                     task = new Deadline(description, parts[3]);
                     break;
                 case "E":
                     //For Event, the 4th and 5th parts are the 'from' and 'to' strings
-                    if (parts.length < 5) return null; // Invalid event format
+                    if (parts.length < 5) return null; //Invalid event format
                     task = new Event(description, parts[3], parts[4]);
                     break;
                 default:
-                    return null; // Unknown task type, skip it
+                    return null; //Unknown task type, skip it
             }
 
             //If the task was marked as done in the file, mark it as done now
@@ -208,33 +211,40 @@ public class Charli {
             return null;
         }
     }
-
+    /*
+    Check if saved ./data/charli.txt exists and if it does,
+    load tasks into this instance's tasks list - ensure previous work saved
+     */
     private void loadTasksFromFile() {
         try {
+            //Create file object to represent data file
             java.io.File file = new java.io.File(filePath);
-            //Check if the file exists before trying to read it
+
+            //If file doesnt exist, dont need to load
             if (!file.exists()) {
                 return; // Nothing to load, just return
             }
 
-            //Use Scanner to read the file
+            //Else, need to load, use Scanner to read the file
             java.util.Scanner scanner = new java.util.Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 Task task = parseSavedTask(line); // Convert the text line back to a Task object
-                if (task != null) {
+                if (task != null) { //if parser succeeded
                     tasks.add(task);
                 }
             }
-            scanner.close();
+            scanner.close(); //prevent leaks
         } catch (java.io.FileNotFoundException e) {
+            //still need to handle exception although if (!file.exists()) prevents it
             System.out.println("Data file not found. Starting with an empty list.");
         }
     }
 
+
     private void saveTasksToFile() {
         try {
-            //1. Ensure the ./data directory exists
+            //1. Ensure the ./data directory is created if program runs for first time
             java.io.File dataDir = new java.io.File("./data");
             if (!dataDir.exists()) {
                 dataDir.mkdirs(); // This creates the directory and any necessary parent directories
@@ -245,6 +255,7 @@ public class Charli {
 
             //3. Loop through all tasks and convert them to a savable string format
             for (Task task : tasks) {
+                //Write string to file followed by newline
                 writer.write(convertTaskToFileString(task) + System.lineSeparator());
             }
 
@@ -256,6 +267,7 @@ public class Charli {
         }
     }
 
+    //helper for saveTasksToFile after program end
     private String convertTaskToFileString(Task task) {
         String typeCode;
         String details;
@@ -272,11 +284,11 @@ public class Charli {
             Event e = (Event) task;
             details = e.getDescription() + " | " + e.getFrom() + " | " + e.getTo();
         } else {
-            // Fallback (should not happen)
+            //Fallback due to unknown task type
             typeCode = "?";
             details = task.getDescription();
         }
-
+        //convert isDone to number 1/0
         int isDone = task.isDone() ? 1 : 0; // Use 1 for done, 0 for not done
         return typeCode + " | " + isDone + " | " + details;
     }
