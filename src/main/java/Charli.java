@@ -1,9 +1,9 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
 
 public class Charli {
 
@@ -132,7 +132,7 @@ public class Charli {
         try {
             String[] parts = input.substring(5).split("/by");
             if (parts.length < 2) {
-                System.out.println("    ERROR! Use: drop [song] /by [release date]");
+                System.out.println("    ERROR! Use: drop [song] /by [dd/mm/yyyy HHmm]");
             } else {
                 String description = parts[0].trim();
                 String by = parts[1].trim();
@@ -141,8 +141,10 @@ public class Charli {
                 System.out.println("      " + tasks.get(tasks.size() - 1).toString());
                 System.out.println("    Now you have " + tasks.size() + " tracks in your rotation!");
             }
+        } catch (DateTimeParseException e) {
+            System.out.println("    ERROR! Date format should be: dd/mm/yyyy HHmm (e.g. 2/12/2019 1800)");
         } catch (Exception e) {
-            System.out.println("    ERROR! Use: drop [song] /by [release date]");
+            System.out.println("    ERROR! Use: drop [song] /by [dd/mm/yyyy HHmm]");
         }
     }
 
@@ -189,7 +191,8 @@ public class Charli {
                 case "D":
                     //For Deadline, the 4th part is the 'by' date string
                     if (parts.length < 4) return null; //Invalid deadline format
-                    task = new Deadline(description, parts[3]);
+                    LocalDateTime by = LocalDateTime.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                    task = new Deadline(description, by);
                     break;
                 case "E":
                     //For Event, the 4th and 5th parts are the 'from' and 'to' strings
@@ -278,7 +281,7 @@ public class Charli {
         } else if (task instanceof Deadline) {
             typeCode = "D";
             Deadline d = (Deadline) task;
-            details = d.getDescription() + " | " + d.getBy();
+            details = d.getDescription() + " | " + d.getBy().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         } else if (task instanceof Event) {
             typeCode = "E";
             Event e = (Event) task;
