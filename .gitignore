@@ -17,4 +17,7 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 
 # saved file data from Charli program
-data/charli.txt
+data/
+
+#Ignore compiled class files
+*.class
