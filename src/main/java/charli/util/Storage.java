@@ -1,3 +1,5 @@
+package charli.util;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -6,6 +8,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import charli.task.Task;
+import charli.task.Todo;
+import charli.task.Deadline;
+import charli.task.Event;
 
 public class Storage {
     private String filePath;
