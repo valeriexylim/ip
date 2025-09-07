@@ -31,7 +31,7 @@ public class Ui {
     }
 
     public void showLoadingError() {
-        System.out.pintln(" Data file not found. Starting with an empty list.")
+        System.out.println("    Data file not found. Starting with an empty list.");
     }
 
     public void showGoodbye() {
