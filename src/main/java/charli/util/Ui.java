@@ -1,4 +1,7 @@
+package charli.util;
+
 import java.util.Scanner;
+
 public class Ui {
     private Scanner scanner;
     public Ui() {

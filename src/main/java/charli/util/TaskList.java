@@ -1,5 +1,9 @@
+package charli.util;
+
 import java.util.ArrayList;
 import java.util.List;
+import charli.task.Task;
+
 
 public class TaskList {
     public List<Task> tasks;

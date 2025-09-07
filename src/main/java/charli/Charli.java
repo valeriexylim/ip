@@ -1,3 +1,11 @@
+package charli;
+
+import charli.command.Command;
+import charli.exception.CharliException;
+import charli.util.Parser;
+import charli.util.Storage;
+import charli.util.TaskList;
+import charli.util.Ui;
 
 public class Charli {
 

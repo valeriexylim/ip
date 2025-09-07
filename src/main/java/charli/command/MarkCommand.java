@@ -1,3 +1,10 @@
+package charli.command;
+
+import charli.exception.CharliException;
+import charli.util.Storage;
+import charli.util.TaskList;
+import charli.util.Ui;
+
 public class MarkCommand implements Command {
     private String fullCommand;
     private boolean markAsDone;

@@ -1,3 +1,11 @@
+package charli.command;
+
+import charli.exception.CharliException;
+import charli.task.Event;
+import charli.util.Storage;
+import charli.util.TaskList;
+import charli.util.Ui;
+
 public class AddEventCommand implements Command {
     private String fullCommand;
 
