@@ -24,7 +24,7 @@ public class AddEventCommand implements Command {
                 String to = parts[2].trim();
                 tasks.add(new Event(description, from, to));
                 System.out.println("    ICONIC! Added this show to your schedule:");
-                System.out.println("      " + tasks.get(tasks.size()-1).toString());
+                System.out.println("      " + tasks.get(tasks.size() - 1).toString());
                 System.out.println("    Now you have " + tasks.size() + " tracks in your rotation!");
             }
         } catch (Exception e) {

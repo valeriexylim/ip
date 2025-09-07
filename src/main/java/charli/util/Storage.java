@@ -44,13 +44,17 @@ public class Storage {
                     break;
                 case "D":
                     //For Deadline, the 4th part is the 'by' date string
-                    if (parts.length < 4) return null; //Invalid deadline format
+                    if (parts.length < 4) {
+                        return null; //Invalid deadline format
+                    }
                     LocalDateTime by = LocalDateTime.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
                     task = new Deadline(description, by);
                     break;
                 case "E":
                     //For Event, the 4th and 5th parts are the 'from' and 'to' strings
-                    if (parts.length < 5) return null; //Invalid event format
+                    if (parts.length < 5) {
+                        return null; //Invalid event format
+                    }
                     task = new Event(description, parts[3], parts[4]);
                     break;
                 default:

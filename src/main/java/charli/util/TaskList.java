@@ -41,7 +41,7 @@ public class TaskList {
     }
 
     public void showRotation() {
-        if(tasks.isEmpty())
+        if (tasks.isEmpty())
         {
             System.out.println("    YUCK No songs yet!!\n");
         } else {
