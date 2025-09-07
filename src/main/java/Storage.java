@@ -65,7 +65,7 @@ public class Storage {
     Check if saved ./data/charli.txt exists and if it does,
     load tasks into this instance's tasks list - ensure previous work saved
      */
-    private void load() {
+    public List<Task> load() {
         List<Task> tasks = new ArrayList<>();
         try {
             //Create file object to represent data file
@@ -73,7 +73,7 @@ public class Storage {
 
             //If file doesnt exist, dont need to load
             if (!file.exists()) {
-                return; // Nothing to load, just return
+                return tasks;
             }
 
             //Else, need to load, use Scanner to read the file
@@ -88,12 +88,13 @@ public class Storage {
             scanner.close(); //prevent leaks
         } catch (IOException e) {
             //still need to handle exception although if (!file.exists()) prevents it
-            System.out.println("Data file not found. Starting with an empty list.");
+            System.out.println("    Error loading tasks: " + e.getMessage());
         }
+        return tasks;
     }
 
 
-    private void save(List<Task> tasks) {
+    public void save(List<Task> tasks) {
         try {
             //1. Ensure the ./data directory is created if program runs for first time
             File dataDir = new File("./data");
