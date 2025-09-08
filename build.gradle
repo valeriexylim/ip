@@ -48,6 +48,9 @@ application {
 shadowJar {
     archiveBaseName = "charli"
     archiveClassifier = null
+
+    archiveVersion = '1.0.0'
+    mergeServiceFiles()
 }
 
 run{
