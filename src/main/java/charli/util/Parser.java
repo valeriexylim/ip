@@ -1,18 +1,14 @@
 package charli.util;
+
+import charli.command.AddDeadlineCommand;
+import charli.command.AddEventCommand;
+import charli.command.AddTodoCommand;
 import charli.command.Command;
-<<<<<<< Updated upstream
-=======
 import charli.command.DeleteCommand;
 import charli.command.ExitCommand;
 import charli.command.FindCommand;
->>>>>>> Stashed changes
 import charli.command.ListCommand;
 import charli.command.MarkCommand;
-import charli.command.AddTodoCommand;
-import charli.command.AddDeadlineCommand;
-import charli.command.AddEventCommand;
-import charli.command.DeleteCommand;
-import charli.command.ExitCommand;
 import charli.exception.CharliException;
 
 public class Parser {
@@ -36,7 +32,7 @@ public class Parser {
         } else if (fullCommand.startsWith("find ")) {
             return new FindCommand(fullCommand);
         } else {
-            throw new CharliException("Use: bop [song], drop [song] /by [date], or show [event] /from [time] /to [time]");
+            throw new CharliException("Use: bop [song], drop [song] /by [date], show [event] /from [time] /to [time], or find [keyword]");
         }
     }
 }

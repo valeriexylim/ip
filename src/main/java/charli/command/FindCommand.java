@@ -13,13 +13,9 @@ public class FindCommand implements Command {
     private String keyword;
 
     public FindCommand(String fullCommand) throws CharliException {
-        try {
-            this.keyword = fullCommand.substring(5).trim();
-            if (keyword.isEmpty()) {
-                throw new CharliException("You gotta specify a keyword...");
-            }
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new CharliException("Use: find [keyword]");
+        this.keyword = fullCommand.substring(5).trim();
+        if (keyword.isEmpty()) {
+            throw new CharliException("You gotta specify a keyword...");
         }
     }
 
