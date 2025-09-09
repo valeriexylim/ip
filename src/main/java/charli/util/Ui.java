@@ -2,6 +2,10 @@ package charli.util;
 
 import java.util.Scanner;
 
+/**
+ * Handles all user interface interactions for the Charli chatbot.
+ * Manages user input, output display, and formatted messages.
+ */
 public class Ui {
     private Scanner scanner;
     public Ui() {

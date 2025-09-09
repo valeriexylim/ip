@@ -5,7 +5,10 @@ import charli.task.Todo;
 import charli.util.Storage;
 import charli.util.TaskList;
 import charli.util.Ui;
-
+/**
+ * Command to add a new todo task to the taslist.
+ * Handles the 'drop' command for adding simple tasks without deadlines.
+ */
 public class AddTodoCommand implements Command {
     public String fullCommand;
 

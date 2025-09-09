@@ -8,7 +8,10 @@ import charli.util.Ui;
 import java.time.format.DateTimeParseException;
 
 
-
+/**
+ * Command to add a new deadline task to the taslist.
+ * Handles the 'drop' command for adding simple tasks without deadlines.
+ */
 public class AddDeadlineCommand implements Command {
     private String fullCommand;
 

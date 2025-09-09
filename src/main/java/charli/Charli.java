@@ -7,12 +7,23 @@ import charli.util.Storage;
 import charli.util.TaskList;
 import charli.util.Ui;
 
+/**
+ * The main class for the Charli chatbot application.
+ * Charli is a task management chatbot that helps users track songs, deadlines, and events.
+ * It supports commands for adding, deleting, marking, and finding tasks.
+ *
+ * @since A-MoreOOP
+ */
 public class Charli {
 
     private Storage storage;
     private Ui ui;
     private TaskList tasks;
 
+    /**
+     * Constructs a new Charli instance with the specified file path for data storage.
+     * Initializes the UI, storage, and loads existing tasks from file.
+     */
     public Charli() {
         ui = new Ui();
         storage = new Storage("./data/charli.txt");
@@ -25,6 +36,10 @@ public class Charli {
 
     }
 
+    /**
+     * Runs the main chatbot loop, processing user commands until exit.
+     * Handles command parsing, execution, and error handling.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

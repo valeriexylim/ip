@@ -6,6 +6,10 @@ import charli.util.Storage;
 import charli.util.TaskList;
 import charli.util.Ui;
 
+/**
+ * Command to delete tasks from the task list.
+ * Handles the 'delete' command for task removal.
+ */
 public class DeleteCommand implements Command {
     private String fullCommand;
 
