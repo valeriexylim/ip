@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Ui {
     private Scanner scanner;
+
     public Ui() {
         this.scanner = new Scanner(System.in);
 
@@ -12,10 +13,10 @@ public class Ui {
     public void showWelcome() {
         String logo =
                 "         ,--./,-.   \n" +
-                "        / #      \\  \n" +
-                "       |          | \n" +
-                "        \\        /  \n" +
-                "         `._,._.'   \n";
+                        "        / #      \\  \n" +
+                        "       |          | \n" +
+                        "        \\        /  \n" +
+                        "         `._,._.'   \n";
         System.out.println("Hi British Vogue, I'm CharliXCX!\nWhat club classics would you like on your summer rotation?\n");
 
     }

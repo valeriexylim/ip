@@ -5,8 +5,8 @@ import charli.task.Deadline;
 import charli.util.Storage;
 import charli.util.TaskList;
 import charli.util.Ui;
-import java.time.format.DateTimeParseException;
 
+import java.time.format.DateTimeParseException;
 
 
 public class AddDeadlineCommand implements Command {

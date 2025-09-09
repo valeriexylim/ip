@@ -1,8 +1,9 @@
 package charli.util;
 
+import charli.task.Task;
+
 import java.util.ArrayList;
 import java.util.List;
-import charli.task.Task;
 
 
 public class TaskList {
@@ -41,8 +42,7 @@ public class TaskList {
     }
 
     public void showRotation() {
-        if (tasks.isEmpty())
-        {
+        if (tasks.isEmpty()) {
             System.out.println("    YUCK No songs yet!!\n");
         } else {
             System.out.println("    INCREDIBLE MIX INCOMING!!! (" + tasks.size() + " tracks)\n");

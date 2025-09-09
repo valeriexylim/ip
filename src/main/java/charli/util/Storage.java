@@ -1,5 +1,10 @@
 package charli.util;
 
+import charli.task.Deadline;
+import charli.task.Event;
+import charli.task.Task;
+import charli.task.Todo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,11 +13,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import charli.task.Task;
-import charli.task.Todo;
-import charli.task.Deadline;
-import charli.task.Event;
 
 public class Storage {
     private String filePath;
@@ -72,6 +72,7 @@ public class Storage {
             return null;
         }
     }
+
     /*
     Check if saved ./data/charli.txt exists and if it does,
     load tasks into this instance's tasks list - ensure previous work saved
