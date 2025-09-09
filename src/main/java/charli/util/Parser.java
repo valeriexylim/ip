@@ -1,12 +1,13 @@
 package charli.util;
-import charli.command.Command;
-import charli.command.ListCommand;
-import charli.command.MarkCommand;
-import charli.command.AddTodoCommand;
+
 import charli.command.AddDeadlineCommand;
 import charli.command.AddEventCommand;
+import charli.command.AddTodoCommand;
+import charli.command.Command;
 import charli.command.DeleteCommand;
 import charli.command.ExitCommand;
+import charli.command.ListCommand;
+import charli.command.MarkCommand;
 import charli.exception.CharliException;
 
 /**
@@ -26,7 +27,7 @@ public class Parser {
         if (fullCommand.equals("rotation")) {
             return new ListCommand();
         } else if (fullCommand.startsWith("played ")) {
-            return new MarkCommand(fullCommand,true);
+            return new MarkCommand(fullCommand, true);
         } else if (fullCommand.startsWith("unplayed ")) {
             return new MarkCommand(fullCommand, false);
         } else if (fullCommand.startsWith("bop ")) {  //Changed from "todo"

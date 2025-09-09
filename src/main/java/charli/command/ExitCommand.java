@@ -1,6 +1,5 @@
 package charli.command;
 
-import charli.exception.CharliException;
 import charli.util.Storage;
 import charli.util.TaskList;
 import charli.util.Ui;
@@ -14,6 +13,7 @@ public class ExitCommand implements Command {
         storage.save(tasks.getTasks());
         ui.showGoodbye();
     }
+
     public boolean isExit() {
         return true;
     }
