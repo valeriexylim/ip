@@ -14,6 +14,10 @@ import charli.task.Todo;
 import charli.task.Deadline;
 import charli.task.Event;
 
+/**
+ * Handles file storage operations for the Charli chatbot.
+ * Manages loading tasks from file and saving tasks to file persistence.
+ */
 public class Storage {
     private String filePath;
 

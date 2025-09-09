@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import charli.task.Task;
 
-
+/**
+ * Manages a collection of tasks and provides operations for task management.
+ * Handles adding, removing, and querying tasks in the list.
+ */
 public class TaskList {
     public List<Task> tasks;
 

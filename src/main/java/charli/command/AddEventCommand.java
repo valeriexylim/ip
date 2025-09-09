@@ -6,6 +6,10 @@ import charli.util.Storage;
 import charli.util.TaskList;
 import charli.util.Ui;
 
+/**
+ * Command to add a new event task with start and end time to tasklist.
+ * Handles the 'show' command for adding time-bound events.
+ */
 public class AddEventCommand implements Command {
     private String fullCommand;
 

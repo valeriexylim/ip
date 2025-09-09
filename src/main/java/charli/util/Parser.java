@@ -9,7 +9,19 @@ import charli.command.DeleteCommand;
 import charli.command.ExitCommand;
 import charli.exception.CharliException;
 
+/**
+ * Parses user input commands and returns appropriate Command objects.
+ * Handles command validation and interpretation for the Charli chatbot.
+ */
 public class Parser {
+
+    /**
+     * Parses a user input command string into a corresponding Command object.
+     *
+     * @param fullCommand the complete user input command
+     * @return a Command object representing the parsed command
+     * @throws CharliException if the command format is invalid or unrecognized
+     */
     public static Command parse(String fullCommand) throws CharliException {
         if (fullCommand.equals("rotation")) {
             return new ListCommand();

@@ -5,6 +5,10 @@ import charli.util.Storage;
 import charli.util.TaskList;
 import charli.util.Ui;
 
+/**
+ * Command to mark tasks as played or unplayed.
+ * Handles both 'played' and 'unplayed' commands for task status management.
+ */
 public class MarkCommand implements Command {
     private String fullCommand;
     private boolean markAsDone;
