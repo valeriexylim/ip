@@ -23,14 +23,16 @@ public class AddTodoCommand implements Command {
                 throw new CharliException("Bop description can't be empty! Use: bop [song name]");
             } else {
                 tasks.add(new Todo(description));
-                System.out.println("    YAS! Added this bop to your rotation:");
-                System.out.println("      " + tasks.get(tasks.size() - 1).toString());
-                System.out.println("    Now you have " + tasks.size() + " tracks in your rotation!");
+                StringBuilder message = new StringBuilder();
+                message.append("    YAS! Added this bop to your rotation:")
+                        .append("      ").append(tasks.get(tasks.size() - 1).toString())
+                        .append("\n")
+                        .append("    Now you have ").append(tasks.size()).append(" tracks in your rotation!");
+                return message.toString();
             }
         } catch (Exception e) {
             throw new CharliException("Use: bop [song name]");
         }
-        return null;
     }
 
     public boolean isExit() {
