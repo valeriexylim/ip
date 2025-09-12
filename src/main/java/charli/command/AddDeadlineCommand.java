@@ -31,10 +31,10 @@ public class AddDeadlineCommand implements Command {
                 tasks.add(new Deadline(description, by));
 
                 StringBuilder message = new StringBuilder();
-                message.append("    FIRE! Added this upcoming drop:\n    ")
+                message.append("Sweettt! Added this upcoming drop:\n")
                         .append(tasks.get(tasks.size() - 1).toString())
-                        .append("\n")
-                        .append("    Now you have ")
+                        .append("\n\n")
+                        .append("Now you have ")
                         .append(tasks.size())
                         .append(" tracks in your rotation!");
                 return message.toString();

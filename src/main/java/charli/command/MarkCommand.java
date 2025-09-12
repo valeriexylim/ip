@@ -26,10 +26,10 @@ public class MarkCommand implements Command {
                 StringBuilder message = new StringBuilder();
                 if (markAsDone) {
                     tasks.get(songIndex).markAsDone();
-                    message.append("    YAS! I've marked this bop as played:");
+                    message.append("AMAZING! I've marked this bop as played:");
                 } else {
                     tasks.get(songIndex).markAsNotDone();
-                    message.append("    OK, marked this track as unplayed:");
+                    message.append("AW! I've marked this track as unplayed:");
                 }
                 message.append(tasks.get(songIndex).toString()).append("\n");
                 return message.toString();

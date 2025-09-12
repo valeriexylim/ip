@@ -13,10 +13,16 @@ public class FindCommand implements Command {
     private String keyword;
 
     public FindCommand(String fullCommand) throws CharliException {
-        this.keyword = fullCommand.substring(5).trim();
-        if (keyword.isEmpty()) {
+        // Trim leading/trailing whitespace
+        String trimmed = fullCommand.trim();
+
+        // "find" is 4 chars. If trimmed length == 4, then there's no keyword.
+        if (trimmed.length() <= 4) {
             throw new CharliException("You gotta specify a keyword...");
         }
+
+        // Otherwise, cut off the command word and trim again
+        this.keyword = trimmed.substring(4).trim();
     }
 
     @Override
@@ -37,9 +43,9 @@ public class FindCommand implements Command {
         if (matchingTasks.isEmpty()) {
             throw new CharliException("No tracks found containing: " + keyword);
         } else {
-            message = new StringBuilder("    Here are the matching tracks in your rotation:\n");
+            message = new StringBuilder("Here are the matching tracks in your rotation:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                message.append("    ").append(i + 1).append(". ")
+                message.append(i + 1).append(". ")
                         .append(matchingTasks.get(i)).append("\n");
             }
         }

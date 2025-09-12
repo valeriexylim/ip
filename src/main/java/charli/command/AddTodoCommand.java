@@ -19,17 +19,14 @@ public class AddTodoCommand implements Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CharliException {
         try {
             String description = fullCommand.substring(4).trim();
-            if (description.isEmpty()) {
-                throw new CharliException("Bop description can't be empty! Use: bop [song name]");
-            } else {
-                tasks.add(new Todo(description));
-                StringBuilder message = new StringBuilder();
-                message.append("    YAS! Added this bop to your rotation:")
-                        .append("      ").append(tasks.get(tasks.size() - 1).toString())
-                        .append("\n")
-                        .append("    Now you have ").append(tasks.size()).append(" tracks in your rotation!");
-                return message.toString();
-            }
+            tasks.add(new Todo(description));
+            StringBuilder message = new StringBuilder();
+            message.append("HOT! Added this bop to your rotation:")
+                    .append(tasks.get(tasks.size() - 1).toString())
+                    .append("\n")
+                    .append("Now you have ").append(tasks.size()).append(" tracks in your rotation!");
+            return message.toString();
+
         } catch (Exception e) {
             throw new CharliException("Use: bop [song name]");
         }

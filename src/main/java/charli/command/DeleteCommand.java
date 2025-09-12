@@ -23,9 +23,9 @@ public class DeleteCommand implements Command {
             if (songIndex >= 0 && songIndex < tasks.size()) {
                 Task removedSong = tasks.remove(songIndex);
 
-                StringBuilder message = new StringBuilder("    Noted. I've removed this track:\n");
-                message.append("      ").append(removedSong.toString())
-                        .append("\n    Now you have ").append(tasks.size()).append(" tracks in your rotation!");
+                StringBuilder message = new StringBuilder("Got it! I've removed this track:\n");
+                message.append(removedSong.toString())
+                        .append("\nNow you have ").append(tasks.size()).append(" tracks in your rotation!");
                 return message.toString();
             } else {
                 throw new CharliException("Track number doesn't exist!");

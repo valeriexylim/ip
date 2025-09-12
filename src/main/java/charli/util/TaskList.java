@@ -47,13 +47,13 @@ public class TaskList {
     public String showRotation() {
         StringBuilder message = new StringBuilder();
         if (tasks.isEmpty()) {
-            message.append("    All done!!!\n");
+            message.append("All done!!!\n");
         } else {
-            message.append("    INCREDIBLE MIX INCOMING!!! ")
+            message.append("INCREDIBLE MIX INCOMING!!! ")
                     .append(tasks.size())
                     .append(" tracks:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                message.append("      ").append(i + 1).append(". ")
+                message.append(i + 1).append(". ")
                         .append(tasks.get(i).toString()).append("\n");
             }
         }

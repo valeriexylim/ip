@@ -30,14 +30,4 @@ public class Ui {
         System.out.println("    Data file not found. Starting with an empty list.");
     }
 
-    public void showGoodbye() {
-        System.out.println("    XOXO");
-        String logo =
-                "         ,--./,-.   \n" +
-                        "        / #      \\  \n" +
-                        "       |          | \n" +
-                        "        \\        /  \n" +
-                        "         `._,._.'   \n";
-        System.out.println(logo);
-    }
 }

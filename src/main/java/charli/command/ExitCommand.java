@@ -11,15 +11,7 @@ import charli.util.Ui;
 public class ExitCommand implements Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         storage.save(tasks.getTasks());
-        StringBuilder message = new StringBuilder("XOXO,\n");
-        String logo =
-                "         ,--./,-.   \n" +
-                        "        / #      \\  \n" +
-                        "       |          | \n" +
-                        "        \\        /  \n" +
-                        "         `._,._.'   \n";
-        message.append(logo);
-        return message.toString();
+        return "XOXO, Charli";
     }
 
     public boolean isExit() {
