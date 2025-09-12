@@ -16,7 +16,7 @@ public class AddTodoCommand implements Command {
         this.fullCommand = fullCommand;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CharliException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CharliException {
         try {
             String description = fullCommand.substring(4).trim();
             if (description.isEmpty()) {
@@ -30,6 +30,7 @@ public class AddTodoCommand implements Command {
         } catch (Exception e) {
             throw new CharliException("Use: bop [song name]");
         }
+        return null;
     }
 
     public boolean isExit() {

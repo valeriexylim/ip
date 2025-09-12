@@ -9,8 +9,8 @@ import charli.util.Ui;
  * Handles the 'rotation' command for task listing.
  */
 public class ListCommand implements Command {
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.showRotation();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return tasks.showRotation();
     }
 
     public boolean isExit() {

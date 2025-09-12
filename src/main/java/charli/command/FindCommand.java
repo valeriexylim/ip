@@ -20,7 +20,7 @@ public class FindCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CharliException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CharliException {
         TaskList matchingTasks = new TaskList();
 
         // Search through tasks
@@ -33,14 +33,17 @@ public class FindCommand implements Command {
         }
 
         // Display results
+        StringBuilder message;
         if (matchingTasks.isEmpty()) {
             throw new CharliException("No tracks found containing: " + keyword);
         } else {
-            System.out.println("    Here are the matching tracks in your rotation:");
+            message = new StringBuilder("    Here are the matching tracks in your rotation:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println("    " + (i + 1) + ". " + matchingTasks.get(i));
+                message.append("    ").append(i + 1).append(". ")
+                        .append(matchingTasks.get(i)).append("\n");
             }
         }
+        return message.toString();
     }
 
     @Override

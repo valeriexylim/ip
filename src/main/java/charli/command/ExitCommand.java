@@ -9,9 +9,17 @@ import charli.util.Ui;
  * Handles the 'bye' command for application termination.
  */
 public class ExitCommand implements Command {
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         storage.save(tasks.getTasks());
-        ui.showGoodbye();
+        StringBuilder message = new StringBuilder("XOXO,\n");
+        String logo =
+                "         ,--./,-.   \n" +
+                        "        / #      \\  \n" +
+                        "       |          | \n" +
+                        "        \\        /  \n" +
+                        "         `._,._.'   \n";
+        message.append(logo);
+        return message.toString();
     }
 
     public boolean isExit() {

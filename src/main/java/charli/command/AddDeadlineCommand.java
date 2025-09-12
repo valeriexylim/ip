@@ -19,7 +19,7 @@ public class AddDeadlineCommand implements Command {
         this.fullCommand = fullCommand;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CharliException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CharliException {
         try {
             String[] parts = fullCommand.substring(5).split("/by");
             if (parts.length < 2) {
@@ -30,9 +30,14 @@ public class AddDeadlineCommand implements Command {
 
                 tasks.add(new Deadline(description, by));
 
-                System.out.println("    FIRE! Added this upcoming drop:");
-                System.out.println("      " + tasks.get(tasks.size() - 1).toString());
-                System.out.println("    Now you have " + tasks.size() + " tracks in your rotation!");
+                StringBuilder message = new StringBuilder();
+                message.append("    FIRE! Added this upcoming drop:\n    ")
+                        .append(tasks.get(tasks.size() - 1).toString())
+                        .append("\n")
+                        .append("    Now you have ")
+                        .append(tasks.size())
+                        .append(" tracks in your rotation!");
+                return message.toString();
             }
         } catch (DateTimeParseException e) {
             throw new CharliException("Date format should be: dd/mm/yyyy HHmm (e.g. 2/12/2019 1800)");

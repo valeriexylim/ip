@@ -17,14 +17,16 @@ public class DeleteCommand implements Command {
         this.fullCommand = fullCommand;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CharliException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CharliException {
         try {
             int songIndex = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
             if (songIndex >= 0 && songIndex < tasks.size()) {
                 Task removedSong = tasks.remove(songIndex);
-                System.out.println("    Noted. I've removed this track:");
-                System.out.println("      " + removedSong.toString());
-                System.out.println("    Now you have " + tasks.size() + " tracks in your rotation!");
+
+                StringBuilder message = new StringBuilder("    Noted. I've removed this track:\n");
+                message.append("      ").append(removedSong.toString())
+                        .append("\n    Now you have ").append(tasks.size()).append(" tracks in your rotation!");
+                return message.toString();
             } else {
                 throw new CharliException("Track number doesn't exist!");
             }
