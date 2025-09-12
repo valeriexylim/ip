@@ -44,14 +44,19 @@ public class TaskList {
         return tasks;
     }
 
-    public void showRotation() {
+    public String showRotation() {
+        StringBuilder message = new StringBuilder();
         if (tasks.isEmpty()) {
-            System.out.println("    YUCK No songs yet!!\n");
+            message.append("All done!!!\n");
         } else {
-            System.out.println("    INCREDIBLE MIX INCOMING!!! (" + tasks.size() + " tracks)\n");
+            message.append("INCREDIBLE MIX INCOMING!!! ")
+                    .append(tasks.size())
+                    .append(" tracks:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println("      " + (i + 1) + ". " + tasks.get(i).toString() + "\n");
+                message.append(i + 1).append(". ")
+                        .append(tasks.get(i).toString()).append("\n");
             }
         }
+        return message.toString();
     }
 }

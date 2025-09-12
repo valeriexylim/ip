@@ -13,14 +13,20 @@ public class FindCommand implements Command {
     private String keyword;
 
     public FindCommand(String fullCommand) throws CharliException {
-        this.keyword = fullCommand.substring(5).trim();
-        if (keyword.isEmpty()) {
+        // Trim leading/trailing whitespace
+        String trimmed = fullCommand.trim();
+
+        // "find" is 4 chars. If trimmed length == 4, then there's no keyword.
+        if (trimmed.length() <= 4) {
             throw new CharliException("You gotta specify a keyword...");
         }
+
+        // Otherwise, cut off the command word and trim again
+        this.keyword = trimmed.substring(4).trim();
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CharliException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CharliException {
         TaskList matchingTasks = new TaskList();
 
         // Search through tasks
@@ -33,14 +39,17 @@ public class FindCommand implements Command {
         }
 
         // Display results
+        StringBuilder message;
         if (matchingTasks.isEmpty()) {
             throw new CharliException("No tracks found containing: " + keyword);
         } else {
-            System.out.println("    Here are the matching tracks in your rotation:");
+            message = new StringBuilder("Here are the matching tracks in your rotation:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println("    " + (i + 1) + ". " + matchingTasks.get(i));
+                message.append(i + 1).append(". ")
+                        .append(matchingTasks.get(i)).append("\n");
             }
         }
+        return message.toString();
     }
 
     @Override

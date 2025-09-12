@@ -18,18 +18,21 @@ public class MarkCommand implements Command {
         this.markAsDone = markAsDone;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CharliException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CharliException {
         try {
             int songIndex = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
+
             if (songIndex >= 0 && songIndex < tasks.size()) {
+                StringBuilder message = new StringBuilder();
                 if (markAsDone) {
                     tasks.get(songIndex).markAsDone();
-                    System.out.println("    YAS! I've marked this bop as played:");
+                    message.append("AMAZING! I've marked this bop as played:");
                 } else {
                     tasks.get(songIndex).markAsNotDone();
-                    System.out.println("    OK, marked this track as unplayed:");
+                    message.append("AW! I've marked this track as unplayed:");
                 }
-                System.out.println("      " + tasks.get(songIndex).toString() + "\n");
+                message.append(tasks.get(songIndex).toString()).append("\n");
+                return message.toString();
             } else {
                 throw new CharliException("Track number doesn't exist!\n");
             }

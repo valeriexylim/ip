@@ -9,9 +9,9 @@ import charli.util.Ui;
  * Handles the 'bye' command for application termination.
  */
 public class ExitCommand implements Command {
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         storage.save(tasks.getTasks());
-        ui.showGoodbye();
+        return "XOXO, Charli";
     }
 
     public boolean isExit() {

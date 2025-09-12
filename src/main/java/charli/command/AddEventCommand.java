@@ -17,7 +17,7 @@ public class AddEventCommand implements Command {
         this.fullCommand = fullCommand;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws CharliException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CharliException {
         try {
             String[] parts = fullCommand.substring(5).split("/from|/to");
             if (parts.length < 3) {
@@ -27,9 +27,11 @@ public class AddEventCommand implements Command {
                 String from = parts[1].trim();
                 String to = parts[2].trim();
                 tasks.add(new Event(description, from, to));
-                System.out.println("    ICONIC! Added this show to your schedule:");
-                System.out.println("      " + tasks.get(tasks.size() - 1).toString());
-                System.out.println("    Now you have " + tasks.size() + " tracks in your rotation!");
+
+                StringBuilder message = new StringBuilder("Icon, I added this show to your schedule:\n");
+                message.append(tasks.get(tasks.size() - 1).toString())
+                        .append("\n").append("Now you have ").append(tasks.size()).append(" tracks in your rotation!");
+                return message.toString();
             }
         } catch (Exception e) {
             throw new CharliException("Use: show [event] /from [start time] /to [end time]");
