@@ -41,7 +41,7 @@ public class Charli {
      * Handles command parsing, execution, and error handling.
      */
     public void run() {
-        ui.showWelcome();
+
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -62,6 +62,14 @@ public class Charli {
         new Charli().run();
     }
 
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(tasks, ui, storage);
+        } catch (CharliException e) {
+            return e.getMessage();
+        }
+    }
 }
 
 

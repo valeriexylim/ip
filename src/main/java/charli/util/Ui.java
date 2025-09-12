@@ -7,22 +7,10 @@ import java.util.Scanner;
  * Manages user input, output display, and formatted messages.
  */
 public class Ui {
-    private Scanner scanner;
+    private final Scanner scanner;
 
     public Ui() {
         this.scanner = new Scanner(System.in);
-
-    }
-
-    public void showWelcome() {
-        String logo =
-                "         ,--./,-.   \n" +
-                        "        / #      \\  \n" +
-                        "       |          | \n" +
-                        "        \\        /  \n" +
-                        "         `._,._.'   \n";
-        System.out.println("Hi British Vogue, I'm CharliXCX!\nWhat club classics would you like on your summer rotation?\n");
-
     }
 
     public String readCommand() {
