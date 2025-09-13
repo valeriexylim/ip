@@ -25,7 +25,6 @@ public class Deadline extends Task {
         super(description);
         assert by != null : "Input of Deadline date and time must not be null";
         this.by = LocalDateTime.parse(by, INPUT_FORMATTER);
-        assert !this.by.isBefore(LocalDateTime.now()) : "Deadline date and time must be before now";
     }
 
     //Constructor for internal use - parse previous tasks in storage file
