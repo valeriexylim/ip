@@ -1,5 +1,7 @@
 package charli.task;
 
+import charli.exception.CharliException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -21,10 +23,14 @@ public class Deadline extends Task {
      * @param by the due date string in "d/M/yyyy HHmm" format
      * @throws DateTimeParseException if the date string format is invalid
      */
-    public Deadline(String description, String by) throws DateTimeParseException {
+    public Deadline(String description, String by) throws DateTimeParseException, CharliException {
         super(description);
         assert by != null : "Input of Deadline date and time must not be null";
-        this.by = LocalDateTime.parse(by, INPUT_FORMATTER);
+        LocalDateTime deadline = LocalDateTime.parse(by, INPUT_FORMATTER);
+        this.by = deadline;
+        if (deadline.isBefore(LocalDateTime.now())) {
+            throw new CharliException("Deadline must be after current time...");
+        }
 
     }
 

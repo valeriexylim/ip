@@ -41,6 +41,8 @@ public class AddDeadlineCommand implements Command {
             }
         } catch (DateTimeParseException e) {
             throw new CharliException("Date format should be: dd/mm/yyyy HHmm (e.g. 2/12/2019 1800)");
+        } catch (CharliException e) {
+            throw e;
         } catch (Exception e) {
             throw new CharliException("Use: drop [song] /by [dd/mm/yyyy HHmm]");
         }
