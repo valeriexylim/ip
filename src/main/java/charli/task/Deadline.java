@@ -25,6 +25,7 @@ public class Deadline extends Task {
         super(description);
         assert by != null : "Input of Deadline date and time must not be null";
         this.by = LocalDateTime.parse(by, INPUT_FORMATTER);
+
     }
 
     //Constructor for internal use - parse previous tasks in storage file

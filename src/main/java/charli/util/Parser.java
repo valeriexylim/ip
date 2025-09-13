@@ -37,28 +37,24 @@ public class Parser {
             Now, you try!
             """;
 
-    public static Command parse(String fullCommand) throws CharliException {
+    public static Command parse(String input) throws CharliException {
 
-        if (fullCommand.equals("rotation")) {
-            return new ListCommand();
-        } else if (fullCommand.startsWith("played")) {
-            return new MarkCommand(fullCommand,true);
-        } else if (fullCommand.startsWith("unplayed")) {
-            return new MarkCommand(fullCommand, false);
-        } else if (fullCommand.startsWith("bop")) {  // Changed from "todo"
-            return new AddTodoCommand(fullCommand);
-        } else if (fullCommand.startsWith("drop")) {  // Changed from "deadline"
-            return new AddDeadlineCommand(fullCommand);
-        } else if (fullCommand.startsWith("show")) {  // Changed from "event"
-            return new AddEventCommand(fullCommand);
-        } else if (fullCommand.startsWith("delete")) {
-            return new DeleteCommand(fullCommand);
-        } else if (fullCommand.equals("bye")) {
-            return new ExitCommand();
-        } else if (fullCommand.startsWith("find")) {
-            return new FindCommand(fullCommand);
-        } else {
-            throw new CharliException(HELP_MESSAGE);
-        }
+        assert input != null : "User input is null";
+
+        String[] parts = input.split(" ", 2);
+        String command = parts[0];
+
+        return switch (command) {
+            case "rotation" -> new ListCommand();
+            case "bye" -> new ExitCommand();
+            case "bop" -> new AddTodoCommand(input);
+            case "drop" -> new AddDeadlineCommand(input);
+            case "show" -> new AddEventCommand(input);
+            case "played" -> new MarkCommand(input, true);
+            case "unplayed" -> new MarkCommand(input, false);
+            case "delete" -> new DeleteCommand(input);
+            case "find" -> new FindCommand(input);
+            default -> throw new CharliException("You gave an unknown command: " + command + "\n" + HELP_MESSAGE);
+        };
     }
 }
