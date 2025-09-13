@@ -15,6 +15,9 @@ public class Task {
      * @param description The description of the task
      */
     public Task(String description) {
+        assert description != null && !description.isEmpty()
+            : "Task description must not be null or blank";
+
         this.description = description;
         this.isDone = false;
     }

@@ -22,6 +22,7 @@ public class Storage {
     private String filePath;
 
     public Storage(String filePath) {
+        assert filePath != null : "filePath for storage of tasks cannot be null";
         this.filePath = filePath;
     }
 
@@ -111,6 +112,7 @@ public class Storage {
 
 
     public void save(List<Task> tasks) {
+        assert tasks != null : "tasks to save cannot be null";
         try {
             //1. Ensure the ./data directory is created if program runs for first time
             File dataDir = new File("./data");
