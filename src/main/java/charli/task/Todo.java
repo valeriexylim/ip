@@ -23,6 +23,13 @@ public class Todo extends Task {
      *
      * @return The formatted string representation
      */
+
+    @Override
+    public String toSaveString() {
+        // T | done(0/1) | description | tagsCsv
+        return String.format("T | %d | %s | %s", isDone ? 1 : 0, getDescription(), tagsCsv());
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();
