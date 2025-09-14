@@ -1,13 +1,19 @@
 package charli.task;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Abstract base class representing a task in the Charli chatbot.
  * Provides common functionality for all task types including description and completion status.
  */
 
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
+    private final List<String> tags = new ArrayList<>();
 
     /**
      * Constructs a new Task with the given description.
@@ -43,6 +49,39 @@ public class Task {
         return description;
     }
 
+    // ----- Tags API -----
+    public void addTag(String tag) {
+        if (tag == null) return;
+        String t = tag.trim();
+        if (t.isEmpty()) return;
+        if (!t.startsWith("#")) t = "#" + t;
+        // (optional) disallow commas to keep CSV simple
+        if (t.contains(",")) throw new IllegalArgumentException("Tag cannot contain comma: " + t);
+        tags.add(t);
+    }
+
+    public List<String> getTags() {
+        return Collections.unmodifiableList(tags);
+    }
+
+    public void addTagsCsv(String csv) {
+        if (csv == null || csv.trim().isEmpty()) return;
+        Arrays.stream(csv.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .forEach(this::addTag);
+    }
+
+    /** Convert tag list to comma-separated string for saving. */
+    protected String tagsCsv() {
+        if (tags.isEmpty()) return "";
+        return String.join(",", tags);
+    }
+
+    // ----- Persistence hook -----
+    /** Each subclass provides its save line (without newline). */
+    public abstract String toSaveString();
+
     /**
      * Returns the string representation of the task.
      * Format: [Status] Description
@@ -51,7 +90,9 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        String base = "[" + getStatusIcon() + "] " + description;
+        if (!tags.isEmpty()) base += " " + tags.toString();
+        return base;
     }
 
 }
