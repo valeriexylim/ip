@@ -5,6 +5,8 @@ import charli.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Manages a collection of tasks and provides operations for task management.
@@ -70,26 +72,21 @@ public class TaskList {
     }
 
     public String getMatchingTasks(String keyword) throws CharliException {
-        TaskList matchingTasks = new TaskList();
 
-        for (Task task : tasks) {
-            String taskDescription = task.getDescription().toLowerCase();
-            if (taskDescription.contains(keyword.toLowerCase())) {
-                matchingTasks.add(task);
-            }
-        }
+        List<Task> matches = tasks.stream()
+                .filter(t -> t.getDescription() != null)
+                .filter(t -> t.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .toList();
 
-        // Display results
-        StringBuilder message;
-        if (matchingTasks.isEmpty()) {
+        if (matches.isEmpty()) {
             throw new CharliException("No tracks found containing: " + keyword);
-        } else {
-            message = new StringBuilder("Here are the matching tracks in your rotation:\n");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                message.append(i + 1).append(". ")
-                        .append(matchingTasks.get(i)).append("\n");
-            }
         }
-        return message.toString();
+
+        String body = IntStream.range(0, matches.size())
+                .mapToObj(i -> (i + 1) + ". " + matches.get(i))
+                .collect(Collectors.joining("\n"));
+
+        return "Here are the matching tracks in your rotation:\n" + body;
+
     }
 }
