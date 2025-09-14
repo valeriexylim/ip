@@ -27,29 +27,9 @@ public class FindCommand implements Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CharliException {
-        TaskList matchingTasks = new TaskList();
 
-        // Search through tasks
-        for (int i = 0; i < tasks.size(); i++) {
-            String taskDescription = tasks.get(i).getDescription().toLowerCase();
+        return tasks.getMatchingTasks(keyword);
 
-            if (taskDescription.contains(keyword.toLowerCase())) {
-                matchingTasks.add(tasks.get(i));
-            }
-        }
-
-        // Display results
-        StringBuilder message;
-        if (matchingTasks.isEmpty()) {
-            throw new CharliException("No tracks found containing: " + keyword);
-        } else {
-            message = new StringBuilder("Here are the matching tracks in your rotation:\n");
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                message.append(i + 1).append(". ")
-                        .append(matchingTasks.get(i)).append("\n");
-            }
-        }
-        return message.toString();
     }
 
     @Override

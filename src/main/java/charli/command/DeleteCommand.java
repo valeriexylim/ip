@@ -11,6 +11,7 @@ import charli.util.Ui;
  * Handles the 'delete' command for task removal.
  */
 public class DeleteCommand implements Command {
+    private static final String USAGE = "Use 'delete [number]' format!";
     private String fullCommand;
 
     public DeleteCommand(String fullCommand) {
@@ -18,23 +19,34 @@ public class DeleteCommand implements Command {
     }
 
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CharliException {
-        try {
-            int songIndex = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
-            if (songIndex >= 0 && songIndex < tasks.size()) {
-                Task removedSong = tasks.remove(songIndex);
 
-                StringBuilder message = new StringBuilder("Got it! I've removed this track:\n");
-                message.append(removedSong.toString())
-                        .append("\nNow you have ").append(tasks.size()).append(" tracks in your rotation!");
-                return message.toString();
-            } else {
-                throw new CharliException("Track number doesn't exist!");
-            }
-        } catch (NumberFormatException e) {
-            throw new CharliException("Use 'delete [number]' format!");
-        } catch (IndexOutOfBoundsException e) {
-            throw new CharliException("Please specify a track number!");
+        String[] parts = fullCommand.trim().split("\\s+");
+        if (parts.length < 2) {
+            throw new CharliException("Please specify a track number. " + USAGE);
         }
+
+        final int oneBased;
+        try {
+            oneBased = Integer.parseInt(parts[1]);
+        } catch (NumberFormatException e) {
+            throw new CharliException("Track number must be an integer. " + USAGE);
+        }
+
+        if (oneBased <= 0) {
+            throw new CharliException("Track numbers start at 1. " + USAGE);
+        }
+
+        int index = oneBased - 1;
+        if (index >= tasks.size()) {
+            throw new CharliException("Track #" + oneBased + " doesn't exist. You have "
+                    + tasks.size() + " tracks.");
+        }
+
+        Task removed = tasks.remove(index);
+
+        return "Got it! I've removed this track:\n"
+                + removed
+                + "\nNow you have " + tasks.size() + " tracks in your rotation!";
     }
 
     public boolean isExit() {

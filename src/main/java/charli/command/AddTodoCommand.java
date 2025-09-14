@@ -10,6 +10,9 @@ import charli.util.Ui;
  * Handles the 'drop' command for adding simple tasks without deadlines.
  */
 public class AddTodoCommand implements Command {
+
+    private static final String USAGE = "Use: bop [song name]";
+
     public String fullCommand;
 
     public AddTodoCommand(String fullCommand) {
@@ -17,19 +20,18 @@ public class AddTodoCommand implements Command {
     }
 
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CharliException {
-        try {
-            String description = fullCommand.substring(4).trim();
-            tasks.add(new Todo(description));
-            StringBuilder message = new StringBuilder();
-            message.append("HOT! Added this bop to your rotation:")
-                    .append(tasks.get(tasks.size() - 1).toString())
-                    .append("\n")
-                    .append("Now you have ").append(tasks.size()).append(" tracks in your rotation!");
-            return message.toString();
 
-        } catch (Exception e) {
-            throw new CharliException("Use: bop [song name]");
+        String[] parts = fullCommand.split("\\s+");
+        if (parts.length < 2 || parts[1].isBlank()) {
+            throw new CharliException("Please specify the mysterious bop... " + USAGE);
         }
+
+        String description = parts[1].trim(); // safe; guaranteed to exist here
+        tasks.add(new Todo(description));
+
+        return "HOT! Added this bop to your rotation:"
+            + tasks.getLastTaskString()
+            + "\n" + "Now you have " + tasks.size() + " tracks in your rotation!";
     }
 
     public boolean isExit() {
