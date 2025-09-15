@@ -30,8 +30,6 @@ public class MainWindow {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Charli charli;
 
