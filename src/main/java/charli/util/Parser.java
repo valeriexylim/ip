@@ -55,7 +55,8 @@ public class Parser {
             case "unplayed" -> new MarkCommand(input, false);
             case "delete" -> new DeleteCommand(input);
             case "find" -> new FindCommand(input);
-            case "tag" -> new TagCommand(input);
+            case "tag" -> new TagCommand(input, true);
+            case "untag" -> new TagCommand(input, false);
             default -> throw new CharliException("You gave an unknown command: " + command + "\n" + HELP_MESSAGE);
         };
     }
