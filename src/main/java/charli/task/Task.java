@@ -22,7 +22,7 @@ public abstract class Task {
      */
     public Task(String description) {
         assert description != null && !description.isEmpty()
-            : "Task description must not be null or blank";
+                : "Task description must not be null or blank";
 
         this.description = description;
         this.isDone = false;
@@ -58,6 +58,14 @@ public abstract class Task {
         // (optional) disallow commas to keep CSV simple
         if (t.contains(",")) throw new IllegalArgumentException("Tag cannot contain comma: " + t);
         tags.add(t);
+    }
+
+    public void removeTag(String tag) {
+        if (tag == null) return;
+        String t = tag.trim();
+        if (t.isEmpty()) return;
+        if (!t.startsWith("#")) t = "#" + t;
+        tags.remove(t);
     }
 
     public List<String> getTags() {

@@ -7,15 +7,24 @@ import charli.util.TaskList;
 import charli.util.Ui;
 
 public class TagCommand implements Command {
-    private static final String USAGE = "Use: tag [task number] [#tag]";
+    private static final String TAGUSAGE = "Use: tag [task number] [#tag]";
+    private static final String UNTAGUSAGE = "Use: untag [task number] [#tag]";
     private final String fullCommand;
+    private final boolean isTag;
 
-    public TagCommand(String fullCommand) { this.fullCommand = fullCommand; }
+    public TagCommand(String fullCommand, boolean isTag) {
+        this.fullCommand = fullCommand;
+        this.isTag = isTag;
+    }
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CharliException {
         String[] parts = fullCommand.split(" ", 3);
-        if (parts.length < 3) throw new CharliException(USAGE);
+
+
+        if (parts.length < 3) {
+            throw isTag ? new CharliException(TAGUSAGE) : new CharliException(UNTAGUSAGE);
+        }
 
         int index;
 
@@ -23,19 +32,25 @@ public class TagCommand implements Command {
         try {
             index = Integer.parseInt(parts[1]) - 1;
         } catch (NumberFormatException e) {
-            throw new CharliException(USAGE);
+            throw isTag ? new CharliException(TAGUSAGE) : new CharliException(UNTAGUSAGE);
         }
 
         // Check track num exists
         boolean isValidIndex = index >= 0 && index < tasks.size();
         if (!isValidIndex) throw new CharliException("Track number doesn't exist!");
 
-        // Add tag to task
         String tag = parts[2].trim();
-        tasks.get(index).addTag(tag);
+        if (isTag) {
+            // Add tag to task
+            tasks.get(index).addTag(tag);
+            return "Tagged track " + (index + 1) + " with " + tag + "\n" + tasks.get(index).toString();
+        } else {
+            tasks.get(index).removeTag(tag);
+            return "Untagged track " + (index + 1) + " with " + tag + "\n" + tasks.get(index).toString();
+        }
 
 
-        return "Nice! Tagged track " + (index + 1) + " with " + tag + "\n" + tasks.get(index).toString();
+
     }
 
     @Override public boolean isExit() { return false; }
