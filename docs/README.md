@@ -4,8 +4,7 @@
 
 Charli is a lightweight desktop chatbot that helps you track todos, deadlines, and events. It supports tagging, search, and autosave to a local file.
 
-\$1
-
+---
 ### Quick start
 
 When Charli starts, type commands into the input box and press **Enter**.
@@ -25,8 +24,7 @@ unplayed 1
 delete 1
 bye
 ```
-
-\$2
+---
 
 ## Feature: Adding todos (bops)
 
