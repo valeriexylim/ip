@@ -35,14 +35,14 @@ Describe the action: Adds a simple todo without a date.
 **Example usage:**
 
 ```
-bop buy projector tickets
+bop Woozy
 ```
 
 **Expected outcome:**
 
 ```
-Sweet! Added this bop:
-[T][ ] buy projector tickets
+HOT! Added this bop to your rotation:
+[T][ ] Woozy
 
 Now you have 2 tracks in your rotation!
 ```
@@ -87,7 +87,7 @@ show The Chase /from Fri 7pm /to Fri 10pm
 **Expected outcome:**
 
 ```
-Let’s rave! Added this event:
+Icon, I added this show to your schedule:
 [E][ ] The Chase (from: Fri 7pm, to: Fri 10pm)
 
 Now you have 3 tracks in your rotation!
@@ -102,27 +102,27 @@ Describe the action: Add or remove tags from a task. Tags are normalized to star
 **Add tags** — `tag <index> <tag1>`
 
 ```
-tag 2 urgent
+tag 2 #urgent
 ```
 
 **Expected outcome:**
 
 ```
-Tagged!
-[T][ ] buy projector tickets [#urgent]
+Tagged track 2 with #urgent
+[T][ ] 360 [#urgent]
 ```
 
 **Remove tags** — `untag <index> <tag1>`
 
 ```
-untag 2 urgent
+untag 2 #urgent
 ```
 
 **Expected outcome:**
 
 ```
-Untagged!
-[T][ ] buy projector tickets
+Untagged track 2 with #urgent
+[T][ ] 360
 ```
 
 ---
@@ -134,6 +134,7 @@ Describe the action: Show all tasks, or filter by keyword in description.
 **List** — `rotation`
 
 ```
+INCREDIBLE MIX INCOMING!!! 
 1.[T][ ] buy projector tickets [#school]
 2.[D][ ] Palette (by: 19 Sep 2025, 11:59PM)
 3.[E][ ] Hackathon (from: Sat 9am, to: Sun 6pm)
@@ -142,14 +143,14 @@ Describe the action: Show all tasks, or filter by keyword in description.
 **Find** — `find <keyword>`
 
 ```
-find iP
+find Woozy
 ```
 
 **Expected outcome:**
 
 ```
-Found 1 match:
-2.[D][ ] CS2103T iP (by: 19 Sep 2026, 11:59PM)
+Here are the matching tracks in your rotation:
+1.[T][ ] Woozy [#karaoke]
 ```
 
 ---
@@ -167,7 +168,7 @@ played 1
 **Expected outcome:**
 
 ```
-Marked as played:
+AMAZING! I've marked this bop as played:
 [T][X] 360
 ```
 
@@ -180,7 +181,7 @@ unplayed 1
 **Expected outcome:**
 
 ```
-Marked as unplayed:
+AW! I've marked this track as unplayed:
 [T][ ] 360
 ```
 
@@ -199,6 +200,6 @@ delete 1
 **Expected outcome:**
 
 ```
-Alright, I removed this from your rotation:
+Got it! I've removed this track:
 [T][ ] 360
 ```
