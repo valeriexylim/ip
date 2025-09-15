@@ -33,7 +33,7 @@ public class Storage {
             String[] parts = line.split("\\s*\\|\\s*", -1);
 
             // Minimal sanity: type + done + description must exist
-            if (parts.length < 3) return null;
+            if (parts.length < 3) { return null; }
 
             String type = parts[0].trim();
             boolean isDone = "1".equals(parts[1].trim());
@@ -41,34 +41,33 @@ public class Storage {
 
             Task task;
             switch (type) {
-            case "T": {
-                task = new Todo(description);
-                // Optional tags at parts[3]
-                if (parts.length >= 4) task.addTagsCsv(parts[3].trim()); // <— uses your Task API
-                break;
-            }
-            case "D": {
-                // requires: type | done | desc | by | [tags?]
-                if (parts.length < 4) return null;
-                LocalDateTime by = LocalDateTime.parse(parts[3].trim(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                task = new Deadline(description, by);
-                if (parts.length >= 5) task.addTagsCsv(parts[4].trim()); // <— optional tags
-                break;
-            }
-            case "E": {
-                // requires: type | done | desc | from | to | [tags?]
-                if (parts.length < 5) return null;
-                String from = parts[3].trim();
-                String to   = parts[4].trim();
-                task = new Event(description, from, to);
-                if (parts.length >= 6) task.addTagsCsv(parts[5].trim()); // <— optional tags
-                break;
-            }
-            default:
-                return null;
+                case "T": {
+                    task = new Todo(description);
+                    if (parts.length >= 4) { task.addTagsCsv(parts[3].trim()); }
+                    break;
+                }
+                case "D": {
+                    // requires: type | done | desc | by | [tags?]
+                    if (parts.length < 4) { return null; }
+                    LocalDateTime by = LocalDateTime.parse(parts[3].trim(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                    task = new Deadline(description, by);
+                    if (parts.length >= 5) { task.addTagsCsv(parts[4].trim()); }  // optional tags
+                    break;
+                }
+                case "E": {
+                    // requires: type | done | desc | from | to | [tags?]
+                    if (parts.length < 5) { return null; }
+                    String from = parts[3].trim();
+                    String to   = parts[4].trim();
+                    task = new Event(description, from, to);
+                    if (parts.length >= 6) { task.addTagsCsv(parts[5].trim()); } // optional tags
+                    break;
+                }
+                default:
+                    return null;
             }
 
-            if (isDone) task.markAsDone();
+            if (isDone) { task.markAsDone(); }
             return task;
 
         } catch (Exception e) {

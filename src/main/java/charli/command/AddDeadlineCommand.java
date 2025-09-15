@@ -67,7 +67,7 @@ public class AddDeadlineCommand implements Command {
     private static String sliceArgs(String raw) {
         String s = raw.trim();
         int space = s.indexOf(' ');
-        if (space < 0) return "";          // no args were provided
+        if (space < 0) { return ""; } // no args were provided
         return s.substring(space + 1).trim();
     }
 
@@ -75,10 +75,10 @@ public class AddDeadlineCommand implements Command {
     private static String[] splitRequired(String args, String flag, String usage)
             throws CharliException {
         int i = args.indexOf(flag);
-        if (i < 0) throw new CharliException(usage);
+        if (i < 0) { throw new CharliException(usage); }
         String left = args.substring(0, i).trim();
         String right = args.substring(i + flag.length()).trim();
-        if (left.isEmpty() || right.isEmpty()) throw new CharliException(usage);
+        if (left.isEmpty() || right.isEmpty()) { throw new CharliException(usage); }
         return new String[]{ left, right };
     }
 }

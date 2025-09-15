@@ -52,23 +52,33 @@ public abstract class Task {
 
     // ----- Tags API -----
     private static String normalizeTag(String tag) {
-        if (tag == null) return null;
+        if (tag == null) {
+            return null;
+        }
+
         String t = tag.trim().toLowerCase(Locale.ROOT);
-        if (t.isEmpty()) return null;
-        if (!t.startsWith("#")) t = "#" + t;
-        if (t.contains(",")) throw new IllegalArgumentException("Tag cannot contain comma: " + t);
+
+        if (t.isEmpty()) {
+            return null;
+        }
+        if (!t.startsWith("#")) {
+            t = "#" + t;
+        }
+        if (t.contains(",")) {
+            throw new IllegalArgumentException("Tag cannot contain comma: " + t);
+        }
         return t;
     }
 
     public void addTag(String tag) {
         String t = normalizeTag(tag);
-        if (t == null) return;
+        if (t == null) { return; }
         tags.add(t); // Set prevents duplicates naturally
     }
 
     public void removeTag(String tag) {
         String t = normalizeTag(tag);
-        if (t == null) return;
+        if (t == null) { return; }
         tags.remove(t);
     }
 
@@ -77,14 +87,12 @@ public abstract class Task {
     }
 
     public void addTagsCsv(String csv) {
-        if (csv == null || csv.trim().isEmpty()) return;
+        if (csv == null || csv.trim().isEmpty()) { return; }
         Arrays.stream(csv.split(","))
                 .map(String::trim)
                 .filter(s -> !s.isEmpty())
                 .forEach(this::addTag);
     }
-
-
 
     /**
      * Returns the string representation of the task.
@@ -95,7 +103,7 @@ public abstract class Task {
     @Override
     public String toString() {
         String base = "[" + getStatusIcon() + "] " + description;
-        if (!tags.isEmpty()) base += " " + tags.toString();
+        if (!tags.isEmpty()) { base += " " + tags.toString(); }
         return base;
     }
 

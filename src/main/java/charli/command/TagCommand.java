@@ -37,7 +37,7 @@ public class TagCommand implements Command {
 
         // Check track num exists
         boolean isValidIndex = index >= 0 && index < tasks.size();
-        if (!isValidIndex) throw new CharliException("Track number doesn't exist!");
+        if (!isValidIndex) { throw new CharliException("Track number doesn't exist!"); }
 
         String tag = parts[2].trim();
         if (isTag) {
