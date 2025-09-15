@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Abstract base class representing a task in the Charli chatbot.
@@ -13,7 +14,7 @@ import java.util.List;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
-    private final List<String> tags = new ArrayList<>();
+    private final java.util.Set<String> tags = new java.util.LinkedHashSet<>();
 
     /**
      * Constructs a new Task with the given description.
@@ -50,26 +51,29 @@ public abstract class Task {
     }
 
     // ----- Tags API -----
-    public void addTag(String tag) {
-        if (tag == null) return;
-        String t = tag.trim();
-        if (t.isEmpty()) return;
+    private static String normalizeTag(String tag) {
+        if (tag == null) return null;
+        String t = tag.trim().toLowerCase(Locale.ROOT);
+        if (t.isEmpty()) return null;
         if (!t.startsWith("#")) t = "#" + t;
-        // (optional) disallow commas to keep CSV simple
         if (t.contains(",")) throw new IllegalArgumentException("Tag cannot contain comma: " + t);
-        tags.add(t);
+        return t;
+    }
+
+    public void addTag(String tag) {
+        String t = normalizeTag(tag);
+        if (t == null) return;
+        tags.add(t); // Set prevents duplicates naturally
     }
 
     public void removeTag(String tag) {
-        if (tag == null) return;
-        String t = tag.trim();
-        if (t.isEmpty()) return;
-        if (!t.startsWith("#")) t = "#" + t;
+        String t = normalizeTag(tag);
+        if (t == null) return;
         tags.remove(t);
     }
 
     public List<String> getTags() {
-        return Collections.unmodifiableList(tags);
+        return List.copyOf(tags);
     }
 
     public void addTagsCsv(String csv) {
