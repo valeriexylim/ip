@@ -49,7 +49,7 @@ Now you have 2 tracks in your rotation!
 
 ---
 
-## Adding deadlines (drops)
+## Feature: Adding deadlines (drops)
 
 Describe the action: Adds a deadline task that appears in the list and is saved to the data file. Dates must be in `dd/mm/yyyy HHmm`.
 
