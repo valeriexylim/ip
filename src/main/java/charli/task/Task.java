@@ -72,15 +72,7 @@ public abstract class Task {
                 .forEach(this::addTag);
     }
 
-    /** Convert tag list to comma-separated string for saving. */
-    protected String tagsCsv() {
-        if (tags.isEmpty()) return "";
-        return String.join(",", tags);
-    }
 
-    // ----- Persistence hook -----
-    /** Each subclass provides its save line (without newline). */
-    public abstract String toSaveString();
 
     /**
      * Returns the string representation of the task.

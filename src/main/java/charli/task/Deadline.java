@@ -45,15 +45,6 @@ public class Deadline extends Task {
         return by;
     }
 
-    public String getByForSave() { return by.format(INPUT_FORMATTER); }
-
-    @Override
-    public String toSaveString() {
-        // D | done | description | by | tagsCsv
-        return String.format("D | %d | %s | %s | %s",
-                isDone ? 1 : 0, getDescription(), getByForSave(), tagsCsv());
-    }
-
     /**
      * Returns the string representation of the deadline task.
      * Format: [D][Status] Description (by: Formatted Due Date)
