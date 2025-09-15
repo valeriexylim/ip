@@ -29,51 +29,50 @@ public class Storage {
     //helper for loadTasks
     private Task parseSavedTask(String line) {
         try {
-            //Split the line by " | "
-            String[] parts = line.split(" \\| ");
-            //Skip corrupted lines e.g. due to manual edits/program crash mid saving
-            if (parts.length < 3) {
-                return null; //Invalid line, skip it
-            }
+            // Allow flexible spacing around pipes, keep empty trailing fields if any
+            String[] parts = line.split("\\s*\\|\\s*", -1);
 
-            //Extract tasks details to build tasks - type, isDone, description
-            String type = parts[0];
-            boolean isDone = parts[1].equals("1"); // "1" means done, "0" means not done
-            String description = parts[2];
+            // Minimal sanity: type + done + description must exist
+            if (parts.length < 3) return null;
+
+            String type = parts[0].trim();
+            boolean isDone = "1".equals(parts[1].trim());
+            String description = parts[2].trim();
 
             Task task;
-            //Create the correct type of task based on the code
             switch (type) {
-                case "T":
-                    task = new Todo(description);
-                    break;
-                case "D":
-                    //For Deadline, the 4th part is the 'by' date string
-                    if (parts.length < 4) {
-                        return null; //Invalid deadline format
-                    }
-                    LocalDateTime by = LocalDateTime.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                    task = new Deadline(description, by);
-                    break;
-                case "E":
-                    //For Event, the 4th and 5th parts are the 'from' and 'to' strings
-                    if (parts.length < 5) {
-                        return null; //Invalid event format
-                    }
-                    task = new Event(description, parts[3], parts[4]);
-                    break;
-                default:
-                    return null; //Unknown task type, skip it
+            case "T": {
+                task = new Todo(description);
+                // Optional tags at parts[3]
+                if (parts.length >= 4) task.addTagsCsv(parts[3].trim()); // <— uses your Task API
+                break;
+            }
+            case "D": {
+                // requires: type | done | desc | by | [tags?]
+                if (parts.length < 4) return null;
+                LocalDateTime by = LocalDateTime.parse(parts[3].trim(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                task = new Deadline(description, by);
+                if (parts.length >= 5) task.addTagsCsv(parts[4].trim()); // <— optional tags
+                break;
+            }
+            case "E": {
+                // requires: type | done | desc | from | to | [tags?]
+                if (parts.length < 5) return null;
+                String from = parts[3].trim();
+                String to   = parts[4].trim();
+                task = new Event(description, from, to);
+                if (parts.length >= 6) task.addTagsCsv(parts[5].trim()); // <— optional tags
+                break;
+            }
+            default:
+                return null;
             }
 
-            //If the task was marked as done in the file, mark it as done now
-            if (isDone) {
-                task.markAsDone();
-            }
+            if (isDone) task.markAsDone();
             return task;
 
         } catch (Exception e) {
-            //Catch any errors during parsing like NullPointerException, DateTimeParseException, ArrayIndexOutOfBoundsException
+            // swallow bad/corrupted lines gracefully
             return null;
         }
     }
@@ -140,26 +139,47 @@ public class Storage {
     //Helper for saveTasksToFile after program end
     private String convertTaskToFileString(Task task) {
         String typeCode;
-        String details;
+        List<String> fields = new ArrayList<>();
+
+        // type | done | description | ... | tagsCsv
+        int doneFlag = task.isDone() ? 1 : 0;
 
         if (task instanceof Todo) {
             typeCode = "T";
-            details = task.getDescription();
+            fields.add(task.getDescription());
+
         } else if (task instanceof Deadline) {
             typeCode = "D";
             Deadline d = (Deadline) task;
-            details = d.getDescription() + " | " + d.getBy().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            fields.add(d.getDescription());
+            fields.add(d.getBy().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+
         } else if (task instanceof Event) {
             typeCode = "E";
             Event e = (Event) task;
-            details = e.getDescription() + " | " + e.getFrom() + " | " + e.getTo();
+            fields.add(e.getDescription());
+            fields.add(e.getFrom());
+            fields.add(e.getTo());
+
         } else {
-            //Fallback due to unknown task type
+            // Unknown type fallback
             typeCode = "?";
-            details = task.getDescription();
+            fields.add(task.getDescription());
         }
-        //convert isDone to number 1/0
-        int isDone = task.isDone() ? 1 : 0; // Use 1 for done, 0 for not done
-        return typeCode + " | " + isDone + " | " + details;
+
+        // Append tags as the last field (CSV). If no tags, write empty string for a clean trailing column.
+        String tagsCsv = (task.getTags() == null || task.getTags().isEmpty())
+                ? ""
+                : String.join(",", task.getTags());
+        fields.add(tagsCsv); // <— last column = tags
+
+        // Assemble: type | done | <fields...>
+        StringBuilder sb = new StringBuilder();
+        sb.append(typeCode).append(" | ").append(doneFlag);
+        for (String f : fields) {
+            sb.append(" | ").append(f);
+        }
+        return sb.toString();
     }
+
 }

@@ -9,6 +9,7 @@ import charli.command.ExitCommand;
 import charli.command.FindCommand;
 import charli.command.ListCommand;
 import charli.command.MarkCommand;
+import charli.command.TagCommand;
 import charli.exception.CharliException;
 
 public class Parser {
@@ -54,6 +55,7 @@ public class Parser {
             case "unplayed" -> new MarkCommand(input, false);
             case "delete" -> new DeleteCommand(input);
             case "find" -> new FindCommand(input);
+            case "tag" -> new TagCommand(input);
             default -> throw new CharliException("You gave an unknown command: " + command + "\n" + HELP_MESSAGE);
         };
     }
