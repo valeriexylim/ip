@@ -43,7 +43,11 @@ public class MainWindow {
     @FXML
     public void initialize() {
         bindAutoScroll();
-        Platform.runLater(this::showWelcome);
+        userInput.setOnAction(e -> handleUserInput()); // Enter in TextField = send
+        Platform.runLater(() -> {
+            showWelcome();
+            userInput.requestFocus(); // cursor ready to type
+        });
     }
 
     public void setCharli(Charli charli) {

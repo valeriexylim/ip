@@ -67,6 +67,7 @@ shadowJar {
 
     archiveVersion = '1.0.0'
     mergeServiceFiles()
+    archiveFileName = 'charli.jar'
 }
 
 run{
